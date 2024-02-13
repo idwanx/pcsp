@@ -42,7 +42,7 @@ Route::get('/', HomeController::class)->name('home');
 
 Route::get('/checkauth', CheckAuthController::class)->name('checkauth')->middleware(['auth', 'verified']);
 
-Route::get('{partai}/{tahun}/user/dashboard', DashboardController::class)->name('dashboard_user')->middleware(['auth', 'verified']);
+// Route::get('{partai}/{tahun}/user/dashboard', DashboardController::class)->name('dashboard_user')->middleware(['auth', 'verified']);
 
 Route::get('{partai}/{tahun}admin/dashboard', DashboardAdminController::class)->name('dashboard_admin')->middleware(['auth', 'verified']);
 
