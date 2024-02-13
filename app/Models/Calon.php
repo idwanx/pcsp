@@ -17,11 +17,6 @@ class Calon extends Model
         'user_id', 'no_urut', 'partai_id', 'dapil_id', 'foto'
     ];
 
-    // public function getPictureAttribute()
-    // {
-    //     return asset('storage/'.$this->foto);
-    // }
-
     public function tpsuaras(): BelongsToMany
     {
         return $this->belongsToMany(Tpsuara::class);
