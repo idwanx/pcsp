@@ -9,7 +9,6 @@ const navigation = {
       { name: 'Dashboard', href: '#' },
     ],
   }
-  
 
 export default function Home({ auth }) {
     const [open, setOpen] = useState(false);
