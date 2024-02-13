@@ -33,8 +33,6 @@ export default function Navbar() {
         router.reload();
     });
 
-    // console.log(auth.user.largest_order.role_id == "1");
-
     return (
         <header className="sticky top-0 z-10">
             <Transition.Root show={open} as={Fragment}>
