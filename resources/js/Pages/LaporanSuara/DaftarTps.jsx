@@ -20,7 +20,6 @@ export default function DaftarTps(props) {
         setState(item);
         setIsPanelKandidat(true);
     };
-
     return (
         <>
             <Panel isOpen={isPanelKandidat} setIsOpen={setIsPanelKandidat}>
