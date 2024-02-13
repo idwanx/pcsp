@@ -135,7 +135,7 @@ export default function Home({ auth }) {
                                         href={route('checkauth')}
                                         className="font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-purple-500"
                                     >
-                                        Dashboardnya
+                                        Dashboard
                                     </Link>
                                 ) : (
                                     <>
