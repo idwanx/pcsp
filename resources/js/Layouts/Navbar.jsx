@@ -26,19 +26,6 @@ const NavLinkSide = ({ active = false, className = '', children, ...props }) => 
 export default function Navbar() {
     const { auth, partai, tahun, jumlah_suara_global } = usePage().props;
     const [open, setOpen] = useState(false);
-    
-    // const [suaraMasuk, setSuaraMasuk] = useState(0);
-
-    // const getSuaraMasuk = async () => {
-    //     try {
-    //         const response = await fetch(route('suaramasuk.check', { partai: partai, tahun: tahun }));
-    //         const getSuara = await response.json();
-    //         const sumsuara = (getSuara.totalsuaramasuk.reduce((a,v) =>  a = a + v.jlh_suara_masuk, 0));
-    //         setSuaraMasuk(sumsuara);
-    //     } catch (err) {
-    //         console.log("error", err);
-    //     }
-    // };
 
     const suaraGlobal = (jumlah_suara_global.reduce((a,v) =>  a = a + v.jlh_suara_masuk, 0));
 
