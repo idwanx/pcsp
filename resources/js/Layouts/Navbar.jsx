@@ -33,7 +33,7 @@ export default function Navbar() {
         router.reload();
     });
 
-
+    console.log(auth.user.largest_order.role_id == "1");
 
 
     
@@ -139,16 +139,16 @@ export default function Navbar() {
                         </Link>
                     </div>
                     <div className="hidden space-x-6 sm:-my-px sm:ml-6 lg:flex">
-                        {auth.user.largest_order.role_id === 1 ?
-                            <NavLink href={route('dashboard_admin')} active={route().current('dashboard_admin')}>
+                        {/* {auth.user.largest_order.role_id === "1" ? */}
+                            <NavLink href={route('dashboard.admin')} active={route().current('dashboard.admin')}>
                                 Dashboard
                             </NavLink>
                             
-                        :
-                            <NavLink href={route('dashboard_user', { partai: partai, tahun: tahun })} active={route().current('dashboard_user')}>
+                        {/* : */}
+                            {/* <NavLink href={route('dashboard.user', { partai: partai, tahun: tahun })} active={route().current('dashboard.user')}>
                                 Dashboard
-                            </NavLink>
-                        }
+                            </NavLink> */}
+                        {/* } */}
                         
                         {/* {auth.user.largest_order.role_id == 2 ?
                             <NavLink href={route('suaramasuk.index', { partai: partai, tahun: tahun })} active={route().current('suaramasuk.*')}>

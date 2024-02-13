@@ -13,7 +13,7 @@ const navigation = {
 
 export default function Home({ auth }) {
     const [open, setOpen] = useState(false);
-    console.log(auth.user.largest_order.role_id == 1);
+
     return (
         <>
             <Head title="Welcome" />

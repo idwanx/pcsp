@@ -23,7 +23,7 @@ class CheckAuthController extends Controller
         // return dd(($roleUser->role_id == "1"));
 
         // if($roleUser->role_id == "1") {
-            return Redirect::route('dashboarddsfds_admin');
+            return Redirect::route('dashboard.admin');
         // } else {
             // return Redirect::route('dashboard_user', ['partai' => $roleUser->alias, 'tahun' => $tahunPemilu]);
         // }
