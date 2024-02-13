@@ -39,10 +39,12 @@ use Inertia\Inertia;
 // });
 
 Route::get('/', HomeController::class)->name('home');
+
 Route::get('/checkauth', CheckAuthController::class)->name('checkauth')->middleware(['auth', 'verified']);
+
 Route::get('{partai}/{tahun}/dashboard', DashboardController::class)->name('dashboard')->middleware(['auth', 'verified']);
 
-Route::get('/dashboard', DashboardAdminController::class)->name('dashboard-admin')->middleware(['auth', 'verified']);
+Route::get('dashboard', DashboardAdminController::class)->name('dashboard-admin')->middleware(['auth', 'verified']);
 
 Route::get('{partai}/{tahun}/hasilsuara/dashboard', [HasilSuaraController::class, 'dashboard'])->name('hasilsuara.dashboard')->middleware(['auth', 'verified']);
 
