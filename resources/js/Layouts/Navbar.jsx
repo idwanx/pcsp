@@ -29,9 +29,9 @@ export default function Navbar() {
 
     const suaraGlobal = (jumlah_suara_global.reduce((a,v) =>  a = a + v.jlh_suara_masuk, 0));
 
-    Echo.channel('suara-masuk').listen('SuaraMasuk', ({ suaramasuk }) => {
-        router.reload();
-    });
+    // Echo.channel('suara-masuk').listen('SuaraMasuk', ({ suaramasuk }) => {
+    //     router.reload();
+    // });
 
     return (
         <header className="sticky top-0 z-10">
