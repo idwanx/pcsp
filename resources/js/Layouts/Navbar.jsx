@@ -31,9 +31,11 @@ export default function Navbar() {
 
     Echo.channel('suara-masuk').listen('SuaraMasuk', ({ suaramasuk }) => {
         router.reload();
-        console.log(suaramasuk);
     });
 
+
+
+console.log(auth.user.largest_order.role_id === 1);
     
     
     return (
@@ -137,12 +139,13 @@ export default function Navbar() {
                         </Link>
                     </div>
                     <div className="hidden space-x-6 sm:-my-px sm:ml-6 lg:flex">
-                        {auth.user.largest_order.role_id !== 1 ?
-                            <NavLink href={route('dashboard_user', { partai: partai, tahun: tahun })} active={route().current('dashboard_user')}>
+                        {auth.user.largest_order.role_id === 1 ?
+                            <NavLink href={route('dashboard_admin')} active={route().current('dashboard_admin')}>
                                 Dashboard
                             </NavLink>
+                            
                         :
-                            <NavLink href={route('dashboard_admin')} active={route().current('dashboard_admin')}>
+                            <NavLink href={route('dashboard_user', { partai: partai, tahun: tahun })} active={route().current('dashboard_user')}>
                                 Dashboard
                             </NavLink>
                         }
