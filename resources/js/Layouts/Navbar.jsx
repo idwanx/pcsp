@@ -158,7 +158,7 @@ export default function Navbar() {
                         null
                         } */}
 
-                        {auth.user.largest_order.role_id == 2 ?
+                        {auth.user.largest_order.role_id == "2" ?
                             <NavLink href={route('inputsuara.dashboard', { partai: partai, tahun: tahun })} active={route().current('inputsuara.*')}>
                                 Input Suara
                             </NavLink>
@@ -166,7 +166,7 @@ export default function Navbar() {
                         null
                         }
                         
-                        {auth.user.largest_order.role_id == 2 ?
+                        {auth.user.largest_order.role_id == "2" ?
                             <NavLink href={route('laporansuara.dashboard', { partai: partai, tahun: tahun })} active={route().current('laporansuara.*')}>
                                 Laporan Suara
                             </NavLink>
@@ -174,7 +174,7 @@ export default function Navbar() {
                         null
                         }
                         
-                        {auth.user.largest_order.role_id == 5 ?
+                        {auth.user.largest_order.role_id == "5" ?
                             <NavLink href={route('laporsuara.dashboard', { partai: partai, tahun: tahun })} active={route().current('laporsuara.*')}>
                                 Lapor Suara
                             </NavLink>
