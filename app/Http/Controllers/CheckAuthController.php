@@ -20,10 +20,10 @@ class CheckAuthController extends Controller
 
         $tahunPemilu = Pemilu::max('tahun');
 
-        return dd(($roleUser->role_id == 1));
+        // return dd(($roleUser->role_id == 1));
 
         if($roleUser->role_id == 1) {
-            return Redirect::route('dashboard-admin');
+            return Redirect::route('dashboard_admin');
         } else {
             return Redirect::route('dashboard', ['partai' => $roleUser->alias, 'tahun' => $tahunPemilu]);
         }

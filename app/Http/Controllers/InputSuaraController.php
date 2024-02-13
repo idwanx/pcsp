@@ -81,18 +81,20 @@ class InputSuaraController extends Controller
         $tpsuara = Tpsuara::query()->select(['tpsuaras.id', 'kecamatans.nama_kecamatan', 'desas.nama_desa', 'tpsuaras.nama_tpsuara', 'tpsuaras.jlh_pemilih'])
         ->withCount([
             'calontpsuaras' => function (Builder $query) use($partai) {
-                $query->leftJoin('role_user', 'calon_tpsuara.tpsuara_id', '=', 'role_user.tpsuara_id')
+                $query
+                        // ->leftJoin('role_user', 'calon_tpsuara.tpsuara_id', '=', 'role_user.tpsuara_id')
                         ->select(DB::raw('COALESCE(sum(calon_tpsuara.jlh_suara_tps),0)'))
-                        ->where('role_user.partai_id', '=', $partai->id)
+                        // ->where('role_user.partai_id', '=', $partai->id)
                         // ->where('calon_tpsuara.is_verified_at', '!=', null)
                         ;
             },
         ])
         ->withCount([
             'suararusaks' => function (Builder $query) use($partai) {
-                $query->leftJoin('role_user', 'suararusaks.tpsuara_id', '=', 'role_user.tpsuara_id')
+                $query
+                        // ->leftJoin('role_user', 'suararusaks.tpsuara_id', '=', 'role_user.tpsuara_id')
                         ->select(DB::raw('COALESCE(sum(suararusaks.suara_rusak),0)'))
-                        ->where('role_user.partai_id', '=', $partai->id)
+                        // ->where('role_user.partai_id', '=', $partai->id)
                         // ->where('suararusaks.is_verified_at', '!=', null)
                         ;
             },
