@@ -163,7 +163,6 @@ export default function Home({ auth }) {
                     className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"
                 ></span> */}
                 </header>
-                
             </div>
         </>
     );
