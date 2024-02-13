@@ -35,7 +35,7 @@ export default function Navbar() {
 
 
 
-console.log(auth.user.largest_order.role_id === 1);
+
     
     
     return (
