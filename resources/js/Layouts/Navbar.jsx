@@ -134,7 +134,7 @@ export default function Navbar() {
                         </Link>
                     </div>
                     <div className="hidden space-x-6 sm:-my-px sm:ml-6 lg:flex">
-                        {auth.user.largest_order.role_id === "1" ?
+                        {auth.user.largest_order.role_id == "1" ?
                             <NavLink href={route('dashboard.admin')} active={route().current('dashboard.admin')}>
                                 Dashboard
                             </NavLink>
