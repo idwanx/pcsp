@@ -139,7 +139,7 @@ class InputSuaraController extends Controller
             'dapil' => $dapil,
             'dataKandidat' => $dataKandidat,
             'kecamatans' => $kecamatans,
-            'filtered' => $request->only(['kecamatan']),
+            'filtered' => $request->only(['kecamatan', 'cari']),
         ]);
     }
 

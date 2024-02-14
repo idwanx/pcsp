@@ -94,7 +94,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
         Route::get('dashboard', [LaporanSuaraController::class, 'dashboard'])->name('laporansuara.dashboard');
         Route::get('pemilu/{pemilu}', [LaporanSuaraController::class, 'pemilu'])->name('laporansuara.pemilu');
         Route::get('pemilu/{pemilu}/dapil/{dapil}', [LaporanSuaraController::class, 'suara_pemilu'])->name('laporansuara.suarapemilu');
-
         Route::get('kandidat/{tpsuara}', [LaporanSuaraController::class, 'kandidat'])->name('laporansuara.kandidat');
     });
 });

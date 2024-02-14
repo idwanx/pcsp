@@ -1,13 +1,17 @@
 import App from '@/Layouts/App';
-import { useState } from 'react';
+import { useState, useCallback, useEffect} from 'react';
+import { debounce, pickBy } from 'lodash';
+import { usePrevious } from 'react-use';
 import { Head, usePage, Link, router } from '@inertiajs/react';
 import Panel from '@/Components/Panel';
 import SideBar from './SideBar';
-import { ArrowLeftCircleIcon, ArrowLongRightIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftCircleIcon, ArrowLongRightIcon, ArrowPathIcon, UsersIcon } from '@heroicons/react/24/outline';
 import Pagination from '@/Components/Pagination';
 import CardTotal from './CardTotal';
 import CardPerDapil from './CardPerDapil';
 import PanelKandidat from './PanelKandidat';
+import Select from '@/Components/Select';
+import ButtonIcon from '@/Components/ButtonIcon';
 
 const NavLinkSide = ({ active = false, className = '', children, ...props }) => {
     return (
@@ -24,10 +28,9 @@ const NavLinkSide = ({ active = false, className = '', children, ...props }) => 
     );
 };
 
-
 export default function SuaraPemilu(props) {
     const { data: tpsuara, meta } = props.tpsuara;
-    const { partai, tahun, pemilu, menupemilu, dapil, suaraperdapils, filterdapil } = usePage().props;
+    const { partai, tahun, pemilu, menupemilu, dapil, suaraperdapils, filterdapil, filtered, kecamatans } = usePage().props;
     const [isPanelKandidat, setIsPanelKandidat] = useState(false);
     const [state, setState] = useState([]);
 
@@ -43,6 +46,47 @@ export default function SuaraPemilu(props) {
         setState(item);
         setIsPanelKandidat(true);
     };
+
+    const [values, setValues] = useState({
+        kecamatan: filtered.kecamatan || '',
+        cari: filtered.cari || '',
+    });
+
+    const prevValues = usePrevious(values);
+
+    const reload = useCallback(
+        debounce((query) => {
+            router.get(route(route().current(), { partai: partai, tahun: tahun, pemilu: pemilu.id, dapil: dapil.id }), query, {
+                replace: true,
+                preserveScroll: true,
+                preserveState: true
+              });
+        }, 500)
+    , []);
+
+    useEffect(() => {
+        if (prevValues) {
+          const query = Object.keys(pickBy(values)).length ? pickBy(values) : '';
+        reload(query);
+        }
+      }, [values]);
+
+    function handleChange(e) {
+        const key = e.target.name;
+        const value = e.target.value;
+
+        setValues(values => ({
+            ...values,
+            [key]: value
+        }));
+    }
+
+    function reset() {
+        setValues({
+            kecamatan: '',
+            cari: '',
+        });
+    }
 
     Echo.channel('suara-masuk').listen('SuaraMasuk', ({ suaramasuk }) => {
         router.reload();
@@ -97,8 +141,58 @@ export default function SuaraPemilu(props) {
                                 {tpsuara.length > 0 ?
                                 <>
                                 <CardPerDapil/>
+
+                                <div className="flex flex-col lg:pt-6 sm:pt-4 lg:pb-0 pb-4 lg:flex-row  text-sm lg:items-center lg:justify-between w-full">
+                                    <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-2">
+                                        <div className="relative">
+                                            <Select
+                                                id="kecamatan"
+                                                name="kecamatan"
+                                                className="block w-full"
+                                                value={values.kecamatan} 
+                                                onChange={handleChange}
+                                            >
+                                                <option value="">Filter Kecamatan</option>
+                                                {kecamatans.map(kecamatan => <option key={kecamatan.id} value={kecamatan.id}>{kecamatan.nama_kecamatan}</option>)}
+                                            </Select>
+                                        </div>
+                                        <div className="relative">
+                                            
+                                        </div>
+
+                                        <div className="relative">
+                                            <label className="relative block">
+                                                <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                                    </svg>
+                                                </span>
+                                                <input 
+                                                    id="cari" 
+                                                    name="cari" 
+                                                    type="text" 
+                                                    placeholder="cari desa" 
+                                                    className="block w-full pl-9 placeholder:italic rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6" 
+                                                    value={values.cari}
+                                                    onChange={handleChange}
+                                                    />
+                                            </label>
+                                        </div>
+
+
+                                        <div className="relative">
+                                            <ButtonIcon
+                                                onClick={reset}
+                                                >
+                                                <ArrowPathIcon className="hidden lg:block h-5 w-5 text-gray-400 group-hover:text-purple-500 group-focus:text-purple-500" aria-hidden="true" />
+                                                <span className="lg:hidden sm:block">Reset</span>
+                                            </ButtonIcon>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                                 <div className="overflow-x-auto">
-                                    <div className="mt-4 pb-2 font-bold text-gray-600">Daftar TPS</div>
                                     <table className="w-full table-fixed">
                                         <thead className="uppercase text-xs rounded-t-lg bg-gray-100">
                                             <tr className="text-center font-semibold text-gray-600 border-b">

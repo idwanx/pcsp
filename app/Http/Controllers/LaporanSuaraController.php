@@ -9,6 +9,7 @@ use Inertia\Response;
 use App\Models\Partai;
 use App\Models\Pemilu;
 use App\Models\Tpsuara;
+use App\Models\Kecamatan;
 use App\Models\CalonTpsuara;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -119,7 +120,22 @@ class LaporanSuaraController extends Controller
         ])
         ->leftJoin('desas', 'tpsuaras.desa_id', '=', 'desas.id')
         ->leftJoin('kecamatans', 'desas.kecamatan_id', '=', 'kecamatans.id')
-        ->where('tpsuaras.dapil_id', $dapil->id);
+        
+        
+        
+        // ->where('tpsuaras.dapil_id', $dapil->id)
+        
+        ->when(request('kecamatan'), function ($q) use ($request, $dapil) {
+            return $q->when(request('cari'), function ($q) use ($request, $dapil) {
+                            return $q->where('kecamatans.id', $request->kecamatan)
+                                        ->where('desas.nama_desa', 'like', "%{$request->cari}%")
+                                        ->where('tpsuaras.dapil_id', $dapil->id);
+                        }, function ($q) use ($request, $dapil) {
+                            return $q->where('kecamatans.id', $request->kecamatan)->where('tpsuaras.dapil_id', $dapil->id);
+                        });
+        }, function ($q) use ($dapil) {
+            return $q->where('tpsuaras.dapil_id', $dapil->id);
+        });
 
         $total = $jumlah->pipe(function ($collection) {
             return collect([
@@ -158,6 +174,8 @@ class LaporanSuaraController extends Controller
             'pemilu' => new PemiluResource($pemilu),
             'tpsuara' => TpsuaraResource::collection($tpsuara->paginate(20)->withQueryString()),
             'suaraperdapils' => SuaraCalonResource::collection($suaraperdapils),
+            'kecamatans' => Kecamatan::all(),
+            'filtered' => $request->only(['kecamatan', 'cari']),
         ]);
     }
 

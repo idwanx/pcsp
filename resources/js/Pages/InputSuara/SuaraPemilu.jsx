@@ -2,7 +2,6 @@ import App from '@/Layouts/App';
 import { useState, useCallback, useEffect } from 'react';
 import { debounce, pickBy } from 'lodash';
 import { usePrevious } from 'react-use';
-
 import { Head, usePage, Link, useForm, router } from '@inertiajs/react';
 import Panel from '@/Components/Panel';
 import SideBar from './SideBar';
@@ -12,7 +11,6 @@ import TextInput from '@/Components/TextInput';
 import PanelKandidat from './PanelKandidat';
 import ButtonIcon from '@/Components/ButtonIcon';
 import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
 import Select from '@/Components/Select';
 
 const NavLinkSide = ({ active = false, className = '', children, ...props }) => {
@@ -64,13 +62,10 @@ export default function SuaraPemilu(props) {
     };
 
 
-
-
     const changeTps = (item) => {
         setTps(item);
         setData({...data, tpsuara_id: item.id, suara_rusak: item.suararusaks_count})
     };
-
 
     const [values, setValues] = useState({
         kecamatan: filtered.kecamatan || '',
@@ -112,7 +107,6 @@ export default function SuaraPemilu(props) {
             cari: '',
         });
     }
-
 
     return (
         <>
@@ -156,7 +150,6 @@ export default function SuaraPemilu(props) {
                                     <button type="button" onClick={() => kembali()}><ArrowLeftCircleIcon className="w-7 h-7 text-gray-400 hover:text-purple-500" /></button>
                                 </div>
                                 <hr />
-
                                 <div className="flex flex-col lg:pt-6 sm:pt-4 lg:pb-0 pb-4 lg:flex-row  text-sm lg:items-center lg:justify-between w-full">
                                     <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-2">
                                         <div className="relative">
@@ -187,7 +180,7 @@ export default function SuaraPemilu(props) {
                                                     name="cari" 
                                                     type="text" 
                                                     placeholder="cari desa" 
-                                                    class="block w-full pl-9 placeholder:italic rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6" 
+                                                    className="block w-full pl-9 placeholder:italic rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6" 
                                                     value={values.cari}
                                                     onChange={handleChange}
                                                     />
