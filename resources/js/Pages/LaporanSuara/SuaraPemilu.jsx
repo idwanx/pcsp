@@ -5,7 +5,7 @@ import { usePrevious } from 'react-use';
 import { Head, usePage, Link, router } from '@inertiajs/react';
 import Panel from '@/Components/Panel';
 import SideBar from './SideBar';
-import { ArrowLeftCircleIcon, ArrowLongRightIcon, ArrowPathIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftCircleIcon, ArrowLongRightIcon, ArrowPathIcon, UserCircleIcon, UserIcon, UsersIcon } from '@heroicons/react/24/outline';
 import Pagination from '@/Components/Pagination';
 import CardTotal from './CardTotal';
 import CardPerDapil from './CardPerDapil';
@@ -251,7 +251,7 @@ export default function SuaraPemilu(props) {
                                                 </td>
                                                 <td className="px-3 py-2 text-center">
                                                     <button onClick={() => openPanelKandidat(item)}>
-                                                        <UsersIcon className="w-4 h-4 inline text-rose-600 -mt-0.5" />
+                                                        <UsersIcon className="w-4 h-4 inline text-gray-600 -mt-0.5" />
                                                     </button>
                                                 </td>
                                             </tr>
@@ -284,7 +284,8 @@ export default function SuaraPemilu(props) {
                                                     {suaraperdapils?.map((kandidat, i) => (
                                                     <li key={i} className="flex py-3 items-center">
                                                         {kandidat.foto == null ?
-                                                            <img className="h-16 w-16 flex-none rounded-full bg-gray-50" src="/images/no-camera.png" alt="" />
+                                                            // <img className="h-16 w-16 flex-none rounded-full bg-gray-50" src="/images/no-camera.png" alt="" />
+                                                            <UserCircleIcon className="w-16 h-16 stroke-gray-400 stroke-1 inline -mt-0.5" />
                                                         :
                                                             <img className="h-16 w-16 flex-none rounded-full bg-gray-50" src={`/storage/${kandidat.foto}`} alt="" />
                                                         }

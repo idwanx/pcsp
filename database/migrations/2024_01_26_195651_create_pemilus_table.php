@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('pemilus', function (Blueprint $table) {
             $table->id();
             $table->string('nama_pemilu');
+            $table->boolean('is_partai')->default(0);
             $table->year('tahun');
             $table->text('icon');
             $table->timestamps();

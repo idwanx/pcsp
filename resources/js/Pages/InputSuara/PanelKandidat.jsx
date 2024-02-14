@@ -116,7 +116,7 @@ export default function PanelKandidat({setIsPanelKandidat, model, judul}) {
                                     
                                     {kandidat?.calons.map((calon, indexc) => (
                                         <div key={calon.id} className="relative w-full">
-                                            <UserCircleIcon className="h-7 w-7 absolute -top-0.5 z-10 -ml-3.5 text-gray-500" />
+                                            <UserCircleIcon className="h-7 w-7 absolute -top-0.5 z-10 -ml-3.5 text-gray-400" />
                                             <div className="ml-6">
                                                 <h4 className="font-bold text-gray-800">{calon.user.name}</h4>
                                                 <form>
