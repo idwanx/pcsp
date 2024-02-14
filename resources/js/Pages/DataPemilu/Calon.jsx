@@ -169,7 +169,7 @@ export default function Calon(props) {
                                                             <img className="h-16 w-16 flex-none rounded-full bg-gray-50" src="/images/no-camera.png" alt="" />
                                                         :
 
-                                                            <img className="h-16 w-16 flex-none rounded-full bg-gray-50" src={`storage/${item.foto}`} alt="" />
+                                                            <img className="h-16 w-16 flex-none rounded-full bg-gray-50" src={`/storage/${item.foto}`} alt="" />
                                                         }
                                                         <div className="min-w-0 flex-auto">
                                                         <p className="text-sm leading-6">{item.name}</p>
