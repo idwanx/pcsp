@@ -111,7 +111,7 @@ export default function PanelKandidat({setIsPanelKandidat, model, judul}) {
                                     <div className=" truncate flex flex-1 flex-col min-w-0 text-base font-semibold">
                                         {kandidat.nama_partai}
                                     </div>
-                                        <img className="h-16 w-16 flex-none rounded-md bg-gray-50" src={`/${kandidat.logo}`} alt="" />
+                                        <img className="h-16 w-16 flex-none rounded-md bg-gray-50" src={`/storage/${kandidat.logo}`} alt="" />
                                 </div>
                                 
                                     <div className="ml-2 space-y-4 border-l-2 border-dashed">
