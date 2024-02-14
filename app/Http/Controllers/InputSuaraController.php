@@ -22,6 +22,7 @@ use App\Http\Resources\InputSuara\CalonResource;
 use App\Http\Resources\InputSuara\TpsuaraResource;
 use App\Http\Resources\InputSuara\SuaraCalonResource;
 use App\Http\Requests\InputSuara\StoreSuaraRusakRequest;
+use App\Models\Kecamatan;
 use Illuminate\Contracts\Database\Eloquent\Builder as MyBuilder;
 
 class InputSuaraController extends Controller
@@ -102,7 +103,18 @@ class InputSuaraController extends Controller
         ])
         ->leftJoin('desas', 'tpsuaras.desa_id', '=', 'desas.id')
         ->leftJoin('kecamatans', 'desas.kecamatan_id', '=', 'kecamatans.id')
-        ->where('tpsuaras.dapil_id', $dapil->id);
+
+        ->when(request('kecamatan'), function ($q) use ($request, $dapil) {
+            return $q->when(request('cari'), function ($q) use ($request, $dapil) {
+                            return $q->where('kecamatans.id', $request->kecamatan)
+                                        ->where('desas.nama_desa', 'like', "%{$request->cari}%")
+                                        ->where('tpsuaras.dapil_id', $dapil->id);
+                        }, function ($q) use ($request, $dapil) {
+                            return $q->where('kecamatans.id', $request->kecamatan)->where('tpsuaras.dapil_id', $dapil->id);
+                        });
+        }, function ($q) use ($dapil) {
+            return $q->where('tpsuaras.dapil_id', $dapil->id);
+        });
 
     
         $dataKandidat = Partai::withWhereHas('calons', function ($query) use ($pemilu, $dapil) {
@@ -116,6 +128,8 @@ class InputSuaraController extends Controller
         ->orderBy('id', 'asc')
         ->get();
 
+        $kecamatans = Kecamatan::all();
+
         return Inertia::render('InputSuara/SuaraPemilu', [
             'partai' => $partai,
             'tahun' => $tahun,
@@ -123,7 +137,9 @@ class InputSuaraController extends Controller
             'menupemilu' => $menupemilu,
             'tpsuara' => TpsuaraResource::collection($tpsuara->paginate(20)->withQueryString()),
             'dapil' => $dapil,
-            'dataKandidat' => $dataKandidat
+            'dataKandidat' => $dataKandidat,
+            'kecamatans' => $kecamatans,
+            'filtered' => $request->only(['kecamatan']),
         ]);
     }
 

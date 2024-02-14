@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
-import { UserCircleIcon, UserIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { usePage, useForm, Link } from '@inertiajs/react';
+import { UserCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { usePage, Link } from '@inertiajs/react';
 import TextInput from '@/Components/TextInput';
-import ButtonIcon from '@/Components/ButtonIcon';
-import InputLabel from '@/Components/InputLabel';
 
 export default function PanelKandidat({setIsPanelKandidat, model, judul}) {
     const { partai, dapil, tahun } = usePage().props;

@@ -1,14 +1,19 @@
 import App from '@/Layouts/App';
-import { useState } from 'react';
-import { Head, usePage, Link, useForm } from '@inertiajs/react';
+import { useState, useCallback, useEffect } from 'react';
+import { debounce, pickBy } from 'lodash';
+import { usePrevious } from 'react-use';
+
+import { Head, usePage, Link, useForm, router } from '@inertiajs/react';
 import Panel from '@/Components/Panel';
 import SideBar from './SideBar';
-import { ArrowLeftCircleIcon, ArrowLongRightIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftCircleIcon, ArrowLongRightIcon, ArrowPathIcon, UsersIcon } from '@heroicons/react/24/outline';
 import Pagination from '@/Components/Pagination';
 import TextInput from '@/Components/TextInput';
 import PanelKandidat from './PanelKandidat';
 import ButtonIcon from '@/Components/ButtonIcon';
 import InputError from '@/Components/InputError';
+import InputLabel from '@/Components/InputLabel';
+import Select from '@/Components/Select';
 
 const NavLinkSide = ({ active = false, className = '', children, ...props }) => {
     return (
@@ -28,7 +33,7 @@ const NavLinkSide = ({ active = false, className = '', children, ...props }) => 
 
 export default function SuaraPemilu(props) {
     const { data: tpsuara, meta } = props.tpsuara;
-    const { partai, tahun, pemilu, menupemilu, dapil, dataKandidat } = usePage().props;
+    const { partai, tahun, pemilu, menupemilu, dapil, filtered, kecamatans } = usePage().props;
     const [isPanelKandidat, setIsPanelKandidat] = useState(false);
     const [tps, setTps] = useState('');
     const [state, setState] = useState([]);
@@ -59,12 +64,55 @@ export default function SuaraPemilu(props) {
     };
 
 
+
+
     const changeTps = (item) => {
         setTps(item);
         setData({...data, tpsuara_id: item.id, suara_rusak: item.suararusaks_count})
     };
 
-    // console.log(dataKandidat);
+
+    const [values, setValues] = useState({
+        kecamatan: filtered.kecamatan || '',
+        cari: filtered.cari || '',
+    });
+
+    const prevValues = usePrevious(values);
+
+    const reload = useCallback(
+        debounce((query) => {
+            router.get(route(route().current(), { partai: partai, tahun: tahun, pemilu: pemilu.id, dapil: dapil.id }), query, {
+                replace: true,
+                preserveScroll: true,
+                preserveState: true
+              });
+        }, 500)
+    , []);
+
+    useEffect(() => {
+        if (prevValues) {
+          const query = Object.keys(pickBy(values)).length ? pickBy(values) : '';
+        reload(query);
+        }
+      }, [values]);
+
+    function handleChange(e) {
+        const key = e.target.name;
+        const value = e.target.value;
+
+        setValues(values => ({
+            ...values,
+            [key]: value
+        }));
+    }
+
+    function reset() {
+        setValues({
+            kecamatan: '',
+            cari: '',
+        });
+    }
+
 
     return (
         <>
@@ -108,7 +156,55 @@ export default function SuaraPemilu(props) {
                                     <button type="button" onClick={() => kembali()}><ArrowLeftCircleIcon className="w-7 h-7 text-gray-400 hover:text-purple-500" /></button>
                                 </div>
                                 <hr />
-                                
+
+                                <div className="flex flex-col lg:pt-6 sm:pt-4 lg:pb-0 pb-4 lg:flex-row  text-sm lg:items-center lg:justify-between w-full">
+                                    <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-2">
+                                        <div className="relative">
+                                            <Select
+                                                id="kecamatan"
+                                                name="kecamatan"
+                                                className="block w-full"
+                                                value={values.kecamatan} 
+                                                onChange={handleChange}
+                                            >
+                                                <option value="">Filter Kecamatan</option>
+                                                {kecamatans.map(kecamatan => <option key={kecamatan.id} value={kecamatan.id}>{kecamatan.nama_kecamatan}</option>)}
+                                            </Select>
+                                        </div>
+                                        <div className="relative">
+                                            
+                                        </div>
+
+                                        <div className="relative">
+                                            <label className="relative block">
+                                                <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                                    </svg>
+                                                </span>
+                                                <input 
+                                                    id="cari" 
+                                                    name="cari" 
+                                                    type="text" 
+                                                    placeholder="cari desa" 
+                                                    class="block w-full pl-9 placeholder:italic rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6" 
+                                                    value={values.cari}
+                                                    onChange={handleChange}
+                                                    />
+                                            </label>
+                                        </div>
+
+
+                                        <div className="relative">
+                                            <ButtonIcon
+                                                onClick={reset}
+                                                >
+                                                <ArrowPathIcon className="hidden lg:block h-5 w-5 text-gray-400 group-hover:text-purple-500 group-focus:text-purple-500" aria-hidden="true" />
+                                                <span className="lg:hidden sm:block">Reset</span>
+                                            </ButtonIcon>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="overflow-x-auto">
                                     <table className="w-full table-fixed">
                                         <thead className="uppercase text-xs rounded-t-lg bg-gray-100">
