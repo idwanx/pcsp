@@ -11,7 +11,7 @@ export default function CardPerDapil() {
                 <h1 className="font-normal text-gray-600">Jumlah Pemilih</h1>
                 <div className="flex flex-row items-center mt-1">
                         <div className="flex rounded-full py-1 text-sm font-normal text-gray-700">
-                            {filterdapil.pemilih}
+                            {Number(filterdapil.pemilih).toLocaleString("id-ID")}
                         </div>
                 </div>
             </div>
@@ -21,7 +21,7 @@ export default function CardPerDapil() {
                 <div className="flex flex-row justify-between items-center mt-1">
                     <div>
                         <h6 className="text-gray-600 text-sm font-medium text-left">
-                            {filterdapil.suara_sah}
+                            {Number(filterdapil.suara_sah).toLocaleString("id-ID")}
                         </h6>
                     </div>
                     <span className="inline-flex items-center rounded-full bg-gray-50 px-2 py-1 text-sm font-normal text-gray-700 ring-1 ring-inset ring-gray-600/20">
@@ -51,7 +51,7 @@ export default function CardPerDapil() {
                 <div className="flex flex-row justify-between items-center mt-1">
                     <div>
                         <h6 className="text-gray-600 text-sm font-medium text-left">
-                            {filterdapil.pemilih-(filterdapil.suara_sah+filterdapil.suara_rusak)}
+                            {Number(filterdapil.pemilih-(filterdapil.suara_sah+filterdapil.suara_rusak)).toLocaleString("id-ID")}
                         </h6>
                     </div>
                     <span className="inline-flex items-center rounded-full bg-gray-50 px-2 py-1 text-sm font-normal text-gray-700 ring-1 ring-inset ring-gray-600/20">
