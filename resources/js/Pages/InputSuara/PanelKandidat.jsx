@@ -120,10 +120,10 @@ export default function PanelKandidat({setIsPanelKandidat, model, judul}) {
                                         <div key={calon.id} className="relative w-full">
                                             <UserCircleIcon className="h-7 w-7 absolute -top-0.5 z-10 -ml-3.5 text-gray-500" />
                                             <div className="ml-6">
-                                                <h4 className="font-bold text-gray-600">{calon.user.name}</h4>
+                                                <h4 className="font-bold text-gray-800">{calon.user.name}</h4>
                                                 <form>
                                                     <div class="grid grid-cols-3 mt-2 gap-4 items-center">
-                                                        <span className="text-gray-500">Jlh.Suara</span>
+                                                        <div className="text-gray-500 flex justify-end">Jlh.Suara</div>
                                                         <div className='max-w-screen-sm'>
                                                             <TextInput
                                                                 id="jlh_suara_tps"
@@ -137,9 +137,9 @@ export default function PanelKandidat({setIsPanelKandidat, model, judul}) {
                                                             />
                                                         </div>
 
-                                                        <div className="flex justify-end">
-                                                            <Link className="group inline-flex justify-center rounded-md px-2.5 py-2 text-sm font-medium ring-1 ring-gray-300 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:bg-gray-50 focus:ring-gray-300 transition ease-in-out duration-150" method="post" as="button" href={route('inputsuara.storesuara', { partai: partai, tahun: tahun })} data={{ calon_id: calon?.id, tpsuara_id: model.id, jlh_suara_tps: calon?.jlh_suara_tps }}>
-                                                                <span>UPDATE</span>
+                                                        <div className="flex">
+                                                            <Link className="inline-flex items-center px-4 py-2 bg-gray-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-600 focus:bg-gray-600 active:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150" method="post" as="button" href={route('inputsuara.storesuara', { partai: partai, tahun: tahun })} data={{ calon_id: calon?.id, tpsuara_id: model.id, jlh_suara_tps: calon?.jlh_suara_tps }}>
+                                                                <span className="text-white">UPDATE</span>
                                                             </Link>
                                                         </div>
 
