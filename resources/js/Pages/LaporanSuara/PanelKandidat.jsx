@@ -51,7 +51,7 @@ export default function PanelKandidat({setIsPanelKandidat, model, judul}) {
                                 {kandidat.foto == null ?
                                     <img className="h-16 w-16 flex-none rounded-full bg-gray-50" src="/images/no-camera.png" alt="" />
                                 :
-                                    <img className="h-16 w-16 flex-none rounded-full bg-gray-50" src={`/${kandidat.foto}`} alt="" />
+                                    <img className="h-16 w-16 flex-none rounded-full bg-gray-50" src={`/storage/${kandidat.foto}`} alt="" />
                                 }
                                 <div className="ml-4 flex flex-1 flex-col min-w-0">
                                     <div className='min-w-0 flex-auto'>
