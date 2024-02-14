@@ -42,7 +42,7 @@ export default function LaporForm({ model, dataTps, isClose, submitLabel, title 
                                 {model.foto == null ?
                                     <img className="h-16 w-16 flex-none rounded-full bg-gray-50" src="/images/no-camera.png" alt="" />
                                 :
-                                    <img className="h-16 w-16 flex-none rounded-full bg-gray-50" src={`/${model.foto}`} alt="" />
+                                    <img className="h-16 w-16 flex-none rounded-full bg-gray-50" src={`/storage/${model.foto}`} alt="" />
                                 }
                                     <div className="flex-1">
                                         <h3 className="text-base font-semibold tracking-tight text-gray-700">{model.name}</h3>

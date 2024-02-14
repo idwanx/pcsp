@@ -21,16 +21,16 @@ export default function PanelKandidat({setIsPanelKandidat, model, judul}) {
         }
     ]);
 
-    const [tes, setTes] = useState([{
-        id: '',
-        nama_partai: '',
-        calons: [{
-            id: '',
-            foto: '',
-            user: { name: ''},
-            jlh_suara_tps: ''
-        }],
-    }]);
+    // const [tes, setTes] = useState([{
+    //     id: '',
+    //     nama_partai: '',
+    //     calons: [{
+    //         id: '',
+    //         foto: '',
+    //         user: { name: ''},
+    //         jlh_suara_tps: ''
+    //     }],
+    // }]);
 
     // const [kandidats, setKandidats] = useState([]);
 
@@ -46,7 +46,6 @@ export default function PanelKandidat({setIsPanelKandidat, model, judul}) {
                     .then(response => response.json())
                     .then(data => 
                         // setKandidats(data.dataKandidat)
-                        
                         {
                             const calon = data.dataKandidat.map(item => {
                                 return (

@@ -186,7 +186,7 @@ export default function Index() {
                                                         {item.calon.foto == null ?
                                                             <img className="h-16 w-16 flex-none rounded-full bg-gray-50" src="/images/no-camera.png" alt="" />
                                                         :
-                                                            <img className="h-16 w-16 flex-none rounded-full bg-gray-50" src={`/${item.calon.foto}`} alt="" />
+                                                            <img className="h-16 w-16 flex-none rounded-full bg-gray-50" src={`/storage/${item.calon.foto}`} alt="" />
                                                         }
                                                         <div className="min-w-0 flex-auto">
                                                             <p className="text-base text-gray-700">{item.calon.user.name}</p>
