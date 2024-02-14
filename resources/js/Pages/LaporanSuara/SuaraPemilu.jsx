@@ -138,8 +138,7 @@ export default function SuaraPemilu(props) {
                                     <button type="button" onClick={() => kembali()}><ArrowLeftCircleIcon className="w-7 h-7 text-gray-400 hover:text-purple-500" /></button>
                                 </div>
                                 <hr />
-                                {tpsuara.length > 0 ?
-                                <>
+                                
                                 <CardPerDapil/>
 
                                 <div className="flex flex-col lg:pt-6 sm:pt-4 lg:pb-0 pb-4 lg:flex-row  text-sm lg:items-center lg:justify-between w-full">
@@ -191,7 +190,8 @@ export default function SuaraPemilu(props) {
                                     </div>
                                 </div>
 
-
+                                {tpsuara.length > 0 ?
+                                <>
                                 <div className="overflow-x-auto">
                                     <table className="w-full table-fixed">
                                         <thead className="uppercase text-xs rounded-t-lg bg-gray-100">
@@ -279,7 +279,7 @@ export default function SuaraPemilu(props) {
                                                     <span className="text-sm font-normal text-gray-500">Dari jumlah suara sah {dapil.nama_dapil}</span>
                                                 </div>
                                                 <hr className="mt-2"/>
-                                                <div className="lg:h-[38rem] 2xl:h-[44rem] overflow-x-hidden overflow-y-auto pt-4 px-4">
+                                                <div className="lg:h-[34rem] 2xl:h-[44rem] overflow-x-hidden overflow-y-auto pt-4 px-4">
                                                     <ul role="list" className="divide-y divide-gray-200">
                                                     {suaraperdapils?.map((kandidat, i) => (
                                                     <li key={i} className="flex py-3 items-center">
