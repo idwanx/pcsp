@@ -10,6 +10,7 @@ use Inertia\Response;
 use App\Models\Partai;
 use App\Models\Pemilu;
 use App\Models\Tpsuara;
+use App\Events\SuaraMasuk;
 use App\Models\Suararusak;
 use App\Models\CalonTpsuara;
 use Illuminate\Http\Request;
@@ -167,6 +168,8 @@ class InputSuaraController extends Controller
                         'user_verified' => $request->user()->id
                     ], ['jlh_suara_tps']
                 );
+
+                broadcast(new SuaraMasuk('suara-masuk'))->toOthers();
         
                 return back()->with([
                     'type' => 'success',
@@ -193,6 +196,8 @@ class InputSuaraController extends Controller
             ['user_id' => $request->user()->id, 'tpsuara_id' => $tpsuara->id],
             ['suara_rusak' => $request->filled('suara_rusak') ? $request->suara_rusak : '0'], ['suara_rusak']
         );
+
+        broadcast(new SuaraMasuk('suara-masuk'))->toOthers();
 
         return back()->with([
             'type' => 'success',
