@@ -14,7 +14,7 @@ export default function UpdateSuaraForm({ model, isClose, submitLabel, title }) 
 
     const approveHandler = (e) => {
         e.preventDefault();
-        put(route('suaramasuk.updatesuara', {partai: partai, tahun: tahun, calonTpsuara: model.id}), {
+        put(route('suaramasuk.updatesuara', { partai: partai, tahun: tahun, calonTpsuara: model.id }), {
             preserveScroll: true,
             onSuccess: () => {
                 isClose();

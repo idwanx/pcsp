@@ -61,7 +61,6 @@ export default function SuaraPemilu(props) {
         });
     };
 
-
     const changeTps = (item) => {
         setTps(item);
         setData({...data, tpsuara_id: item.id, suara_rusak: item.suararusaks_count})
@@ -186,7 +185,6 @@ export default function SuaraPemilu(props) {
                                                     />
                                             </label>
                                         </div>
-
 
                                         <div className="relative">
                                             <ButtonIcon
@@ -316,7 +314,6 @@ export default function SuaraPemilu(props) {
                                                                                 autoComplete="suara_rusak"
                                                                                 onChange={(e) => setData('suara_rusak', e.target.value)}
                                                                             />
-                                                                            
                                                                             <span>
                                                                                 <ButtonIcon 
                                                                                     disabled={processing}

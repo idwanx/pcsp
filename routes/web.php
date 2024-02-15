@@ -59,6 +59,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
         Route::get('kandidat/{dapil}/{tpsuara}', [InputSuaraController::class, 'kandidat'])->name('inputsuara.kandidat');
         
         Route::post('store/suara', [InputSuaraController::class, 'store_suara'])->name('inputsuara.storesuara');
+
+        Route::post('storesuarapartai/suarapartai', [InputSuaraController::class, 'store_suara_partai'])->name('inputsuara.storesuarapartai');
         
         Route::post('storesuararusak/{tpsuara}', [InputSuaraController::class, 'store_suara_rusak'])->name('inputsuara.storesuararusak');
     });

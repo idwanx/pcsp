@@ -35,6 +35,23 @@ export default function Rekap() {
         
     }, [state]);
 
+    // const getCalon = async () => {
+    //     try {
+    //         const response = await fetch(route('rekapsuarapartai.getcalonpartai', { partai: state, tahun: tahun, pemilu: pemilu.id, wilayah: filtered ? filtered.wilayah : '' }));
+    //         const dataCalons = await response.json();
+    //         setCalon(dataCalons.datacalon)
+    //     } catch (err) {
+    //         console.log("error", err);
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     if(state) {
+    //         getCalon();
+    //     }
+    // }, [state]);
+
+
     const jumlahpemilih = (totalpemilih.reduce((a,v) =>  a = a + v.total_pemilih, 0));
 
     const total_suara = (partais.reduce((a,v) =>  a = a + v.jumlah_suara, 0));
@@ -80,7 +97,10 @@ export default function Rekap() {
         setState(partai);
     };
 
-    // console.log(filtered.wilayah);
+    // Echo.channel('suara-masuk').listen('SuaraMasuk', ({ suaramasuk }) => {
+    //     getCalon();
+    //     router.reload();
+    // });
 
     return (
         <>

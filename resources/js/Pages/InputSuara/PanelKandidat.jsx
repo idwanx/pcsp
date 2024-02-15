@@ -1,15 +1,20 @@
 import { useState, useEffect } from 'react';
 import { UserCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { usePage, Link } from '@inertiajs/react';
+import { usePage, useForm, Link } from '@inertiajs/react';
 import TextInput from '@/Components/TextInput';
+import ButtonIcon from '@/Components/ButtonIcon';
+import Modal from '@/Components/Modal';
+import SuaraPartaiForm from './SuaraPartaiForm';
 
 export default function PanelKandidat({setIsPanelKandidat, model, judul}) {
     const { partai, dapil, tahun } = usePage().props;
-    
+    const [isFormAdd, setIsFormAdd] = useState(false);
+    const [state, setState] = useState([]);
     const [kandidats, setKandidats] = useState([
         {
             id: '',
             nama_partai: '',
+            suarapartai: {jlh_suara: ''},
             calons: [{
                 id: '',
                 foto: '',
@@ -18,6 +23,10 @@ export default function PanelKandidat({setIsPanelKandidat, model, judul}) {
             }],
         }
     ]);
+
+
+
+    // console.log(kandidats);
 
     // const [tes, setTes] = useState([{
     //     id: '',
@@ -47,7 +56,7 @@ export default function PanelKandidat({setIsPanelKandidat, model, judul}) {
                         {
                             const calon = data.dataKandidat.map(item => {
                                 return (
-                                    {nama_partai: item.nama_partai, logo: item.logo,
+                                    {id: item.id, lnama_partai: item.nama_partai, logo: item.logo, suarapartai: item.suarapartai,
                                         calons: [
                                             ...item.calons.map(suara => (
                                                     {...suara, calon_id: suara.calontpsuaras?.calon_id, jlh_suara_tps: suara.calontpsuaras?.jlh_suara_tps || ''}
@@ -67,8 +76,19 @@ export default function PanelKandidat({setIsPanelKandidat, model, judul}) {
         
     }, [model.id]);
 
+    // console.log(kandidats);
+
     const closePanelKandidat = () => {
          setIsPanelKandidat(false);
+    };
+
+    const openFormAdd = (item) => {
+        setState({partai: item, tps: model.id});
+        setIsFormAdd(true);
+    };
+
+    const closeFormAdd = () => {
+        setIsFormAdd(false);
     };
 
     const handleFormChange = (indexp, indexc, event) => {
@@ -81,9 +101,12 @@ export default function PanelKandidat({setIsPanelKandidat, model, judul}) {
 
         setKandidats(data);
     }
-    
+
     return (
         <>
+            <Modal isOpen={isFormAdd} closeable={false} onClose={closeFormAdd} size={`xs`}>
+                <SuaraPartaiForm isClose={closeFormAdd} model={state} />
+            </Modal>
             <div className="flex-1 overflow-y-auto py-4 px-4 sm:px-6">
                 <div className="flex items-start justify-between">
                     <h3 className="text-lg font-medium text-gray-900">{judul}</h3>
@@ -105,11 +128,20 @@ export default function PanelKandidat({setIsPanelKandidat, model, judul}) {
                         <div className="grid grid-cols-1 gap-2 divide-y">
                         {kandidats?.map((kandidat, indexp) => (
                             <div key={indexp}>
-                                <div className="flex py-2 items-center">
-                                    <div className=" truncate flex flex-1 flex-col min-w-0 text-base font-semibold">
-                                        {kandidat.nama_partai}
-                                    </div>
+                                <div className="flex pb-6 py-4">
                                         <img className="h-16 w-16 flex-none rounded-md bg-gray-50" src={`/storage/${kandidat.logo}`} alt="" />
+                                        <div className="ml-2 truncate flex-1 flex-col min-w-0 text-base">
+                                            <span className="font-semibold">{kandidat.nama_partai}</span>
+                                            <div className='flex'>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => openFormAdd(kandidat)}
+                                                    className="rounded-md bg-white px-2.5 py-1.5 text-sm text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                                                    >
+                                                    Input Suara Partai
+                                                </button>
+                                            </div>
+                                        </div>
                                 </div>
                                 
                                     <div className="ml-2 space-y-4 border-l-2 border-dashed">
@@ -136,15 +168,15 @@ export default function PanelKandidat({setIsPanelKandidat, model, judul}) {
                                                         </div>
 
                                                         <div className="flex">
-                                                            <Link className="inline-flex items-center px-4 py-2 bg-gray-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-600 focus:bg-gray-600 active:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150" method="post" as="button" href={route('inputsuara.storesuara', { partai: partai, tahun: tahun })} data={{ calon_id: calon?.id, tpsuara_id: model.id, jlh_suara_tps: calon?.jlh_suara_tps }}>
-                                                                <span className="text-white">UPDATE</span>
+                                                            <Link 
+                                                                className="inline-flex items-center px-4 py-2 bg-gray-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-600 focus:bg-gray-600 active:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150" 
+                                                                method="post" as="button" 
+                                                                href={route('inputsuara.storesuara', { partai: partai, tahun: tahun })} data={{ calon_id: calon?.id, tpsuara_id: model.id, jlh_suara_tps: calon?.jlh_suara_tps }}
+                                                            >
+                                                                <span className="text-white">Simpan</span>
                                                             </Link>
                                                         </div>
-
                                                     </div>
-                                                        {/* <div className="max-w-screen-sm text-sm text-gray-500">
-                                                            
-                                                        </div> */}
                                                 </form>
                                             </div>
                                             

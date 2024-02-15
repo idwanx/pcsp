@@ -23,6 +23,7 @@ use App\Http\Resources\InputSuara\TpsuaraResource;
 use App\Http\Resources\InputSuara\SuaraCalonResource;
 use App\Http\Requests\InputSuara\StoreSuaraRusakRequest;
 use App\Models\Kecamatan;
+use App\Models\Suarapartai;
 use Illuminate\Contracts\Database\Eloquent\Builder as MyBuilder;
 
 class InputSuaraController extends Controller
@@ -157,7 +158,8 @@ class InputSuaraController extends Controller
                 $k->where('tpsuara_id', $tpsuara->id);
             })->with('user');
         })
-        ->orderBy('id', 'asc')
+        ->with('suarapartai')
+        // ->orderBy('id', 'asc')
         ->get();
 
 
@@ -200,6 +202,44 @@ class InputSuaraController extends Controller
             }
             
     }
+
+    public function store_suara_partai(Partai $partai, string $tahun, Request $request)
+    {
+        // if(Gate::denies('saksi-akses-tps', [$partai, $tpsuara, $request])) {
+        //     abort(403);
+        // }
+
+        Suarapartai::updateOrCreate(
+            ['partai_id' => $request->partai_id, 'tpsuara_id' => $request->tpsuara_id],
+            [
+                'jlh_suara' => $request->filled('jlh_suara') ? $request->jlh_suara : '0',
+            ], ['jlh_suara']
+        );
+
+            // try {
+                
+            //     Suarapartai::updateOrCreate(
+            //         ['partai_id' => $request->partai_id, 'tpsuara_id' => $request->tpsuara_id],
+            //         [
+            //             'jlh_suara' => $request->filled('jlh_suara') ? $request->jlh_suara : '0',
+            //         ], ['jlh_suara']
+            //     );
+
+        
+            //     return back()->with([
+            //         'type' => 'success',
+            //         'message' => 'Jumlah suara partai berhasil disimpan',
+            //     ]);
+                
+            // } catch (Throwable) {
+            //     return back()->with([
+            //         'type' => 'error',
+            //         'message' => 'Terjadi kesalahan, silahkan hubungi admin',
+            //     ]);
+            // }
+            
+    }
+
 
 
     public function store_suara_rusak(Partai $partai, string $tahun, Tpsuara $tpsuara, StoreSuaraRusakRequest $request)
