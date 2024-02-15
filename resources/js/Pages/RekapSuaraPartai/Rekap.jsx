@@ -37,6 +37,8 @@ export default function Rekap() {
 
     const jumlahpemilih = (totalpemilih.reduce((a,v) =>  a = a + v.total_pemilih, 0));
 
+    const total_suara = (partais.reduce((a,v) =>  a = a + v.jumlah_suara, 0));
+
     const [values, setValues] = useState({
         wilayah: filtered.wilayah || '',
     });
@@ -172,6 +174,20 @@ export default function Rekap() {
                                                 </td>
                                             </tr>
                                         ))}
+                                        <tr className="border-b border-opacity-20 text-base font-semibold bg-slate-50">
+                                                <td className="px-3 py-2 text-center" colSpan={2}>
+                                                    Total
+                                                </td>
+                                                <td className="px-3 py-2 text-center">
+                                                    {Number(total_suara).toLocaleString("id-ID")}
+                                                </td>
+                                                <td className="px-3 py-2 text-center">
+                                                    {parseFloat(total_suara/jumlahpemilih*100).toFixed(2)}%
+                                                </td>
+                                                <td className="px-3 py-2 text-center">
+                                                    
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
