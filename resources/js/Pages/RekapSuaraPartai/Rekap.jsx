@@ -126,13 +126,13 @@ export default function Rekap() {
                                                 <th style={{width: '5%'}} className="p-3 text-center">
                                                     No
                                                 </th>
-                                                <th style={{width: '35%'}} className="p-3 text-left">
+                                                <th style={{width: '45%'}} className="p-3 text-left">
                                                     Nama Partai
                                                 </th>
                                                 <th style={{width: '20%'}} className="p-3 text-center">
                                                     Perolehan Suara
                                                 </th>
-                                                <th style={{width: '30%'}} className="p-3 text-center">
+                                                <th style={{width: '20%'}} className="p-3 text-center">
                                                     Persentase
                                                 </th>
                                                 <th style={{width: '10%'}} className="p-3 text-center">
@@ -147,7 +147,17 @@ export default function Rekap() {
                                                 {index + 1}
                                                 </td>
                                                 <td className="px-3 py-2 text-left">
-                                                    {partai.nama_partai}
+                                                    <div className="flex min-w-0 gap-x-4 items-center">
+                                                        {partai.logo == null ?
+                                                            <img className="h-14 w-14 flex-none rounded-md bg-gray-50" src="/images/no-camera.png" alt="" />
+                                                        :
+
+                                                            <img className="h-14 w-14 flex-none rounded-md bg-gray-50" src={`/storage/${partai.logo}`} alt="" />
+                                                        }
+                                                        <div className="min-w-0 flex-auto">
+                                                            <p className="text-base text-gray-600 leading-6">{partai.nama_partai}</p>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                                 <td className="px-3 py-2 text-center">
                                                     {partai.jumlah_suara}

@@ -63,7 +63,7 @@ class RekapSuaraPartaiController extends Controller
                     return $q->where('dapils.id', $request->wilayah);
                 });
             }
-        ])
+        ])->whereNotIn('id', [25,27,28])
         ->orderBy('jumlah_suara', 'desc')
         ->get();
 
