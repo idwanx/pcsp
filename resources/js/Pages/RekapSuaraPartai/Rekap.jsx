@@ -161,10 +161,10 @@ export default function Rekap() {
                                                 <th style={{width: '13%'}} className="p-3 text-center">
                                                     Jumlah
                                                 </th>
-                                                <th style={{width: '13%'}} className="p-3 text-center">
-                                                    Persentase
+                                                <th style={{width: '10%'}} className="p-3 text-center">
+                                                    %
                                                 </th>
-                                                <th style={{width: '7%'}} className="p-3 text-center">
+                                                <th style={{width: '10%'}} className="p-3 text-center">
                                                     Calon
                                                 </th>
                                             </tr>
