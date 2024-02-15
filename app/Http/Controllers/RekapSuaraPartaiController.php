@@ -63,17 +63,19 @@ class RekapSuaraPartaiController extends Controller
                     return $q->where('dapils.id', $request->wilayah);
                 });
             }
-        ])->whereNotIn('id', [25,27,28])
+        ])
+        ->withCount([
+            'suarapartais as suara_partai' => function (Builder $q) use ($pemilu, $request) {
+                $q->select(DB::raw('COALESCE(sum(jlh_suara),0)'));
+            }
+        ])
+        ->whereNotIn('id', [25,27,28])
         ->orderBy('jumlah_suara', 'desc')
         ->get();
 
 
         $dapils = Dapil::where('pemilu_id', $pemilu->id)->get();
 
-
-
-        
-        
         return Inertia::render('RekapSuaraPartai/Rekap', [
             'partai' => $partai,
             'tahun' => $tahun,

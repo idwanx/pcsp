@@ -27,6 +27,11 @@ class Partai extends Model
         return $this->hasOne(Suarapartai::class);
     }
 
+    public function suarapartais(): HasOne
+    {
+        return $this->hasOne(Suarapartai::class);
+    }
+
     public function dapilCalon(): HasOneThrough
     {
         return $this->hasOneThrough(Dapil::class, Calon::class, 'partai_id', 'id', 'id', 'dapil_id');

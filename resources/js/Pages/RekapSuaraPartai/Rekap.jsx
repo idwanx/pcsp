@@ -3,13 +3,9 @@ import { useState, useCallback, useEffect} from 'react';
 import { debounce, pickBy } from 'lodash';
 import { usePrevious } from 'react-use';
 import { Head, usePage, Link, router } from '@inertiajs/react';
-
 import SideBar from './SideBar';
 import { ArrowLeftCircleIcon, ArrowLongRightIcon, ArrowPathIcon, UserCircleIcon, UserIcon, UsersIcon } from '@heroicons/react/24/outline';
-
 import Select from '@/Components/Select';
-
-
 
 export default function Rekap() {
     const { partai, tahun, pemilu, filtered, partais, dapils, totalpemilih } = usePage().props;
@@ -22,6 +18,7 @@ export default function Rekap() {
         window.history.back();
     };
 
+    
 
     useEffect(() => {
         if(state) {
@@ -54,7 +51,11 @@ export default function Rekap() {
 
     const jumlahpemilih = (totalpemilih.reduce((a,v) =>  a = a + v.total_pemilih, 0));
 
-    const total_suara = (partais.reduce((a,v) =>  a = a + v.jumlah_suara, 0));
+    const total_suara_calon = (partais.reduce((a,v) =>  a = a + v.jumlah_suara, 0));
+
+    const total_suara_partai = (partais.reduce((a,v) =>  a = a + v.suara_partai, 0));
+
+    const total = (partais.reduce((a,v) =>  a = a + v.jumlah_suara + v.suara_partai, 0));
 
     const [values, setValues] = useState({
         wilayah: filtered.wilayah || '',
@@ -148,13 +149,19 @@ export default function Rekap() {
                                                 <th style={{width: '5%'}} className="p-3 text-center">
                                                     No
                                                 </th>
-                                                <th style={{width: '45%'}} className="p-3 text-left">
+                                                <th style={{width: '25%'}} className="p-3 text-left">
                                                     Nama Partai
                                                 </th>
-                                                <th style={{width: '20%'}} className="p-3 text-center">
-                                                    Perolehan Suara
+                                                <th style={{width: '15%'}} className="p-3 text-center">
+                                                    Suara Calon
                                                 </th>
-                                                <th style={{width: '20%'}} className="p-3 text-center">
+                                                <th style={{width: '15%'}} className="p-3 text-center">
+                                                    Suara Partai
+                                                </th>
+                                                <th style={{width: '15%'}} className="p-3 text-center">
+                                                    Jumlah
+                                                </th>
+                                                <th style={{width: '15%'}} className="p-3 text-center">
                                                     Persentase
                                                 </th>
                                                 <th style={{width: '10%'}} className="p-3 text-center">
@@ -182,10 +189,16 @@ export default function Rekap() {
                                                     </div>
                                                 </td>
                                                 <td className="px-3 py-2 text-center">
-                                                    {partai.jumlah_suara}
+                                                    {Number(partai.jumlah_suara).toLocaleString("id-ID")}
                                                 </td>
                                                 <td className="px-3 py-2 text-center">
-                                                    {parseFloat(partai.jumlah_suara/jumlahpemilih*100).toFixed(2)}%
+                                                    {partai.suara_partai}
+                                                </td>
+                                                <td className="px-3 py-2 text-center">
+                                                    {Number(partai.jumlah_suara+partai.suara_partai).toLocaleString("id-ID")}
+                                                </td>
+                                                <td className="px-3 py-2 text-center">
+                                                    {parseFloat((partai.jumlah_suara+partai.suara_partai)/jumlahpemilih*100).toFixed(2)}%
                                                 </td>
                                                 <td className="px-3 py-2 text-center">
                                                     <button onClick={() => openCalons(partai.alias)}>
@@ -199,10 +212,16 @@ export default function Rekap() {
                                                     Total
                                                 </td>
                                                 <td className="px-3 py-2 text-center">
-                                                    {Number(total_suara).toLocaleString("id-ID")}
+                                                    {Number(total_suara_calon).toLocaleString("id-ID")}
                                                 </td>
                                                 <td className="px-3 py-2 text-center">
-                                                    {parseFloat(total_suara/jumlahpemilih*100).toFixed(2)}%
+                                                    {Number(total_suara_partai).toLocaleString("id-ID")}
+                                                </td>
+                                                <td className="px-3 py-2 text-center">
+                                                {Number(total).toLocaleString("id-ID")}
+                                                </td>
+                                                <td className="px-3 py-2 text-center">
+                                                    {parseFloat((total_suara_calon+total_suara_partai)/jumlahpemilih*100).toFixed(2)}%
                                                 </td>
                                                 <td className="px-3 py-2 text-center">
                                                     
