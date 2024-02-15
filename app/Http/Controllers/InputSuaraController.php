@@ -117,16 +117,16 @@ class InputSuaraController extends Controller
         });
 
     
-        $dataKandidat = Partai::withWhereHas('calons', function ($query) use ($pemilu, $dapil) {
-            $query->whereHas('dapil', function ($q) use ($pemilu) {
-                $q->where('pemilu_id', $pemilu->id);
-            })->where('dapil_id', $dapil->id)
-            ->with('calontpsuaras', function ($k) {
-                $k->where('tpsuara_id', 2);
-            })->with('user');
-        })
-        ->orderBy('id', 'asc')
-        ->get();
+        // $dataKandidat = Partai::withWhereHas('calons', function ($query) use ($pemilu, $dapil) {
+        //     $query->whereHas('dapil', function ($q) use ($pemilu) {
+        //         $q->where('pemilu_id', $pemilu->id);
+        //     })->where('dapil_id', $dapil->id)
+        //     ->with('calontpsuaras', function ($k) {
+        //         $k->where('tpsuara_id', 2);
+        //     })->with('user');
+        // })
+        // ->orderBy('id', 'asc')
+        // ->get();
 
         $kecamatans = Kecamatan::all();
 
@@ -137,7 +137,7 @@ class InputSuaraController extends Controller
             'menupemilu' => $menupemilu,
             'tpsuara' => TpsuaraResource::collection($tpsuara->paginate(20)->withQueryString()),
             'dapil' => $dapil,
-            'dataKandidat' => $dataKandidat,
+            // 'dataKandidat' => $dataKandidat,
             'kecamatans' => $kecamatans,
             'filtered' => $request->only(['kecamatan', 'cari']),
         ]);

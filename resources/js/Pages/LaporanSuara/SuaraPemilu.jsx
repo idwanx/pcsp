@@ -155,9 +155,6 @@ export default function SuaraPemilu(props) {
                                                 {kecamatans.map(kecamatan => <option key={kecamatan.id} value={kecamatan.id}>{kecamatan.nama_kecamatan}</option>)}
                                             </Select>
                                         </div>
-                                        <div className="relative">
-                                            
-                                        </div>
 
                                         <div className="relative">
                                             <label className="relative block">
@@ -219,7 +216,7 @@ export default function SuaraPemilu(props) {
                                                     Sisa Suara
                                                 </th>
                                                 <th style={{width: '15%'}} className="p-3 text-center">
-                                                    Aksi
+                                                    Calon
                                                 </th>
                                             </tr>
                                         </thead>
@@ -284,7 +281,6 @@ export default function SuaraPemilu(props) {
                                                     {suaraperdapils?.map((kandidat, i) => (
                                                     <li key={i} className="flex py-3 items-center">
                                                         {kandidat.foto == null ?
-                                                            // <img className="h-16 w-16 flex-none rounded-full bg-gray-50" src="/images/no-camera.png" alt="" />
                                                             <UserCircleIcon className="w-16 h-16 stroke-gray-400 stroke-1 inline -mt-0.5" />
                                                         :
                                                             <img className="h-16 w-16 flex-none rounded-full bg-gray-50" src={`/storage/${kandidat.foto}`} alt="" />

@@ -12,6 +12,7 @@ use App\Http\Controllers\LaporanSuaraController;
 use App\Http\Controllers\LaporSuaraController;
 use App\Http\Controllers\PemiluController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RekapSuaraPartaiController;
 use App\Http\Controllers\SuaraMasukController;
 use App\Http\Controllers\TpsuaraController;
 // use Illuminate\Foundation\Application;
@@ -88,6 +89,17 @@ Route::middleware(['auth', 'verified'])->group(function() {
         Route::put('updatesuararusak/{suararusak}', [SuaraMasukController::class, 'update_suara_rusak'])->name('suaramasuk.updatesuararusak');
     });
 });
+
+Route::middleware(['auth', 'verified'])->group(function() {
+    Route::scopeBindings()->prefix('{partai}/{tahun}/rekapsuarapartai')->group(function () {
+        Route::get('indexrekapsuarapartai', [RekapSuaraPartaiController::class, 'index'])->name('rekapsuarapartai.index');
+        Route::get('pemilu/{pemilu}', [RekapSuaraPartaiController::class, 'rekap'])->name('rekapsuarapartai.rekap');
+
+        Route::get('getcalonpartai/{pemilu}', [RekapSuaraPartaiController::class, 'get_calon'])->name('rekapsuarapartai.getcalonpartai');
+    });
+});
+
+
 
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::scopeBindings()->prefix('{partai}/{tahun}/laporansuara')->group(function () {

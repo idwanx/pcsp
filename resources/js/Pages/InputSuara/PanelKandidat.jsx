@@ -120,7 +120,7 @@ export default function PanelKandidat({setIsPanelKandidat, model, judul}) {
                                             <div className="ml-6">
                                                 <h4 className="font-bold text-gray-800">{calon.user.name}</h4>
                                                 <form>
-                                                    <div class="grid grid-cols-3 mt-2 gap-4 items-center">
+                                                    <div className="grid grid-cols-3 mt-2 gap-4 items-center">
                                                         <div className="text-gray-500 flex justify-end">Jlh.Suara</div>
                                                         <div className='max-w-screen-sm'>
                                                             <TextInput

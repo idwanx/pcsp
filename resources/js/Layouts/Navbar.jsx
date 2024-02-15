@@ -175,7 +175,7 @@ export default function Navbar() {
                         }
 
                         {auth.user.largest_order.role_id == "2" ?
-                            <NavLink>
+                            <NavLink href={route('rekapsuarapartai.index', { partai: partai, tahun: tahun })} active={route().current('rekapsuarapartai.*')}>
                                 Rekap Suara Partai
                             </NavLink>
                         :

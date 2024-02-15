@@ -120,11 +120,7 @@ class LaporanSuaraController extends Controller
         ])
         ->leftJoin('desas', 'tpsuaras.desa_id', '=', 'desas.id')
         ->leftJoin('kecamatans', 'desas.kecamatan_id', '=', 'kecamatans.id')
-        
-        
-        
         // ->where('tpsuaras.dapil_id', $dapil->id)
-        
         ->when(request('kecamatan'), function ($q) use ($request, $dapil) {
             return $q->when(request('cari'), function ($q) use ($request, $dapil) {
                             return $q->where('kecamatans.id', $request->kecamatan)

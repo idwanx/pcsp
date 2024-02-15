@@ -25,4 +25,9 @@ class Partai extends Model
     {
         return $this->hasOneThrough(Dapil::class, Calon::class, 'partai_id', 'id', 'id', 'dapil_id');
     }
+
+    public function calonTpsuaras(): HasOneThrough
+    {
+        return $this->hasOneThrough(CalonTpsuara::class, Calon::class);
+    }
 }

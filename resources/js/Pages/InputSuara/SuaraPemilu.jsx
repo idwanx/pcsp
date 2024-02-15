@@ -225,7 +225,7 @@ export default function SuaraPemilu(props) {
                                                     Sisa Suara
                                                 </th>
                                                 <th style={{width: '10%'}} className="p-3 text-center">
-                                                    Aksi
+                                                    Calon
                                                 </th>
                                             </tr>
                                         </thead>
