@@ -149,22 +149,22 @@ export default function Rekap() {
                                                 <th style={{width: '5%'}} className="p-3 text-center">
                                                     No
                                                 </th>
-                                                <th style={{width: '25%'}} className="p-3 text-left">
+                                                <th style={{width: '36%'}} className="p-3 text-left">
                                                     Nama Partai
                                                 </th>
-                                                <th style={{width: '15%'}} className="p-3 text-center">
+                                                <th style={{width: '13%'}} className="p-3 text-center">
                                                     Suara Calon
                                                 </th>
-                                                <th style={{width: '15%'}} className="p-3 text-center">
+                                                <th style={{width: '13%'}} className="p-3 text-center">
                                                     Suara Partai
                                                 </th>
-                                                <th style={{width: '15%'}} className="p-3 text-center">
+                                                <th style={{width: '13%'}} className="p-3 text-center">
                                                     Jumlah
                                                 </th>
-                                                <th style={{width: '15%'}} className="p-3 text-center">
+                                                <th style={{width: '13%'}} className="p-3 text-center">
                                                     Persentase
                                                 </th>
-                                                <th style={{width: '10%'}} className="p-3 text-center">
+                                                <th style={{width: '7%'}} className="p-3 text-center">
                                                     Calon
                                                 </th>
                                             </tr>
