@@ -56,7 +56,7 @@ export default function PanelKandidat({setIsPanelKandidat, model, judul}) {
                         {
                             const calon = data.dataKandidat.map(item => {
                                 return (
-                                    {id: item.id, lnama_partai: item.nama_partai, logo: item.logo, suarapartai: item.suarapartai,
+                                    {id: item.id, nama_partai: item.nama_partai, logo: item.logo, suarapartai: item.suarapartai,
                                         calons: [
                                             ...item.calons.map(suara => (
                                                     {...suara, calon_id: suara.calontpsuaras?.calon_id, jlh_suara_tps: suara.calontpsuaras?.jlh_suara_tps || ''}
