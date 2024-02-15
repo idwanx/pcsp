@@ -158,8 +158,10 @@ class InputSuaraController extends Controller
                 $k->where('tpsuara_id', $tpsuara->id);
             })->with('user');
         })
-        ->with('suarapartai')
-        // ->orderBy('id', 'asc')
+        ->with('suarapartai', function ($k) use ($tpsuara) {
+            $k->where('tpsuara_id', $tpsuara->id);
+        })
+        ->orderBy('id', 'asc')
         ->get();
 
 
@@ -209,38 +211,28 @@ class InputSuaraController extends Controller
         //     abort(403);
         // }
 
-        Suarapartai::updateOrCreate(
-            ['partai_id' => $request->partai_id, 'tpsuara_id' => $request->tpsuara_id],
-            [
-                'jlh_suara' => $request->filled('jlh_suara') ? $request->jlh_suara : '0',
-            ], ['jlh_suara']
-        );
-
-            // try {
+            try {
                 
-            //     Suarapartai::updateOrCreate(
-            //         ['partai_id' => $request->partai_id, 'tpsuara_id' => $request->tpsuara_id],
-            //         [
-            //             'jlh_suara' => $request->filled('jlh_suara') ? $request->jlh_suara : '0',
-            //         ], ['jlh_suara']
-            //     );
+                Suarapartai::updateOrCreate(
+                    ['partai_id' => $request->partai_id, 'tpsuara_id' => $request->tpsuara_id],
+                    [
+                        'jlh_suara' => $request->filled('jlh_suara') ? $request->jlh_suara : '0',
+                    ], ['jlh_suara']
+                );
 
-        
-            //     return back()->with([
-            //         'type' => 'success',
-            //         'message' => 'Jumlah suara partai berhasil disimpan',
-            //     ]);
+                return back()->with([
+                    'type' => 'success',
+                    'message' => 'Jumlah suara partai berhasil disimpan',
+                ]);
                 
-            // } catch (Throwable) {
-            //     return back()->with([
-            //         'type' => 'error',
-            //         'message' => 'Terjadi kesalahan, silahkan hubungi admin',
-            //     ]);
-            // }
+            } catch (Throwable) {
+                return back()->with([
+                    'type' => 'error',
+                    'message' => 'Terjadi kesalahan, silahkan hubungi admin',
+                ]);
+            }
             
     }
-
-
 
     public function store_suara_rusak(Partai $partai, string $tahun, Tpsuara $tpsuara, StoreSuaraRusakRequest $request)
     {

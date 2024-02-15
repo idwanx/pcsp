@@ -66,7 +66,11 @@ class RekapSuaraPartaiController extends Controller
         ])
         ->withCount([
             'suarapartais as suara_partai' => function (Builder $q) use ($pemilu, $request) {
-                $q->select(DB::raw('COALESCE(sum(jlh_suara),0)'));
+                $q->select(DB::raw('COALESCE(sum(jlh_suara),0)'))
+                ->join('tpsuaras', 'suarapartais.tpsuara_id', '=', 'tpsuaras.id')
+                ->when(request('wilayah'), function ($q) use ($request) {
+                    return $q->where('tpsuaras.dapil_id', $request->wilayah);
+                });
             }
         ])
         ->whereNotIn('id', [25,27,28])
