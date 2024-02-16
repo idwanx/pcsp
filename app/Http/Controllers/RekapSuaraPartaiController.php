@@ -80,6 +80,49 @@ class RekapSuaraPartaiController extends Controller
         ->get();
 
 
+        $hasil[] = ['data'];
+        foreach ($partais as $key => $value) {
+            $hasil[$key] = [
+
+                    'n1'=> [
+                        'id' => $value->id,
+                        'logo' => $value->logo,
+                        'partai' => $value->nama_partai,
+                        'nilai' => ($value->jumlah_suara+$value->suara_partai)/1
+                    ],
+                    'n3'=> [
+                        'id' => $value->id,
+                        'logo' => $value->logo,
+                        'partai' => $value->nama_partai,
+                        'nilai' => ($value->jumlah_suara+$value->suara_partai)/3
+                    ],
+                    'n5'=> [
+                        'id' => $value->id,
+                        'logo' => $value->logo,
+                        'partai' => $value->nama_partai,
+                        'nilai' => ($value->jumlah_suara+$value->suara_partai)/5
+                    ],
+                    'n7'=> [
+                        'id' => $value->id,
+                        'logo' => $value->logo,
+                        'partai' => $value->nama_partai,
+                        'nilai' => ($value->jumlah_suara+$value->suara_partai)/7
+                    ],
+                    'n9'=> [
+                        'id' => $value->id,
+                        'logo' => $value->logo,
+                        'partai' => $value->nama_partai,
+                        'nilai' => ($value->jumlah_suara+$value->suara_partai)/9
+                    ],
+                    'n11'=> [
+                        'id' => $value->id,
+                        'logo' => $value->logo,
+                        'partai' => $value->nama_partai,
+                        'nilai' => ($value->jumlah_suara+$value->suara_partai)/11
+                    ],
+            ];
+        }
+
         $dapils = Dapil::where('pemilu_id', $pemilu->id)->get();
 
         return Inertia::render('RekapSuaraPartai/Rekap', [
@@ -91,6 +134,7 @@ class RekapSuaraPartaiController extends Controller
             'partais' => $partais,
             'dapils' => $dapils,
             'totalpemilih' => $totalpemilih,
+            'hasil' => request('wilayah') ? $hasil : $hasil = [],
             
         ]);
     }
