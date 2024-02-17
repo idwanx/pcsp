@@ -140,7 +140,7 @@ export default function Rekap() {
                                                             </div>
                                                             
                                                             <div className="min-w-0 flex-auto pt-4">
-                                                            <p className="text-ms text-rose-500">{items.length} Calon berdasarkan perengkingan suara terbanyak:</p>
+                                                            <span className="text-sm text-gray-500">{items.length} Calon berdasarkan perengkingan suara terbanyak:</span>
                                                                 <ul role="list" className="divide-y divide-gray-200">
                                                                 {items?.[0].calonpartai.slice(0,items.length).map((terpilih, i) => (
                                                                     <li key={i} className="flex py-2 items-center">
