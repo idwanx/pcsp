@@ -1,1 +1,0 @@
-import{r,j as a}from"./app-NBdqxUQS.js";const p=r.forwardRef(function({type:e="text",className:o="",isFocused:u=!1,...n},t){const s=t||r.useRef();return r.useEffect(()=>{u&&s.current.focus()},[]),a.jsx("input",{...n,type:e,className:"border-gray-300 py-1.5 focus:border-gray-500 focus:ring-gray-500 rounded-md shadow-sm "+o,ref:s})});export{p as T};
