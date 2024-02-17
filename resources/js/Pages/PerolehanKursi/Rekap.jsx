@@ -73,7 +73,7 @@ export default function Rekap() {
 
     return (
         <>
-            <Head title="Perolehan Suara" />
+            <Head title="Perolehan Kursi" />
             <div className="flex flex-col sm:flex-row gap-6 sm:gap-6">
                 <div className="hidden sm:w-1/5 lg:block md:hidden">
                     <div className="space-y-4 -mt-12 pt-12 lg:sticky lg:top-8 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
