@@ -22,7 +22,6 @@ export default function Rekap() {
     
     const slicedata = ranking?.slice(0,6);
 
-
     const groupedData = slicedata?.reduce((groups, item) => {
         const { partai } = item;
         if (!groups[partai]) {
@@ -68,7 +67,6 @@ export default function Rekap() {
         }));
 
         setCalon([]);
-        setState(null);
     }
 
     return (
@@ -143,7 +141,7 @@ export default function Rekap() {
                                                             </div>
                                                             
                                                             <div className="min-w-0 flex-auto pt-4">
-                                                            <p className="text-ms text-rose-600">Calon dengan suara terbanyak:</p>
+                                                            <p className="text-ms text-rose-600">{items.length} Calon berdasarkan perengkingan suara terbanyak:</p>
                                                                 <ul role="list" className="divide-y divide-gray-200">
                                                                 {items?.[0].calonpartai.slice(0,items.length).map((terpilih, i) => (
                                                                     <li key={i} className="flex py-2 items-center">
@@ -159,6 +157,7 @@ export default function Rekap() {
                                                                                         {terpilih.user.name}
                                                                                     </h3>
                                                                                 </div>
+                                                                                <p className="truncate text-xs text-gray-500 max-w-readable">Nomor urut: {terpilih.no_urut}</p>
                                                                                 <p className="truncate text-xs text-gray-500 max-w-readable">Perolehan Suara: {terpilih.calontpsuaras_count}</p>
                                                                             </div>
                                                                             
