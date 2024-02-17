@@ -111,13 +111,13 @@ export default function Rekap() {
                                     <table className="w-full table-fixed">
                                         <thead className="uppercase text-xs rounded-t-lg bg-gray-100">
                                             <tr className="text-center font-semibold text-gray-600 border-b">
-                                                <th style={{width: '5%'}} className="p-3 text-center">
+                                                <th style={{width: '10%'}} className="p-3 text-center">
                                                     No
                                                 </th>
-                                                <th style={{width: '36%'}} className="p-3 text-left">
-                                                    Nama Partai
+                                                <th style={{width: '75%'}} className="p-3 text-left">
+                                                    Nama Partai / Calon
                                                 </th>
-                                                <th style={{width: '10%'}} className="p-3 text-center">
+                                                <th style={{width: '15%'}} className="p-3 text-center">
                                                     Jumlah Kursi
                                                 </th>
                                             </tr>
