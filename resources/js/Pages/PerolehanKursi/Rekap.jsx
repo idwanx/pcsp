@@ -157,7 +157,7 @@ export default function Rekap() {
                                                                                     </h3>
                                                                                 </div>
                                                                                 <p className="truncate text-xs text-gray-500 max-w-readable">Nomor urut: {terpilih.no_urut}</p>
-                                                                                <p className="truncate text-xs text-gray-500 max-w-readable">Perolehan Suara: {terpilih.calontpsuaras_count}</p>
+                                                                                <p className="truncate text-xs text-gray-500 max-w-readable">Perolehan Suara: {Number(terpilih.calontpsuaras_count).toLocaleString("id-ID")}</p>
                                                                             </div>
                                                                             
                                                                         </div>
