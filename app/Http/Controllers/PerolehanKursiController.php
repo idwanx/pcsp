@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Calon;
 use App\Models\Dapil;
 use Inertia\Response;
 use App\Models\Partai;
 use App\Models\Pemilu;
-use App\Models\CalonTpsuara;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Database\Eloquent\Builder as MyBuilder;
-use App\Http\Resources\RekapSuaraPartai\RekapSuaraPartaiResource;
 
-class RekapSuaraPartaiController extends Controller
+class PerolehanKursiController extends Controller
 {
     public function index(Partai $partai, Request $request)
     {
@@ -28,7 +26,7 @@ class RekapSuaraPartaiController extends Controller
 
         $pemilu = Pemilu::where('is_partai', '=', 1)->where('tahun', '=', $tahun)->min('id');
 
-        return Redirect::route('rekapsuarapartai.rekap', ['partai' => $partai, 'tahun' => $tahun, 'pemilu' =>  $pemilu]);
+        return Redirect::route('perolehankursi.rekap', ['partai' => $partai, 'tahun' => $tahun, 'pemilu' =>  $pemilu]);
     }
 
     public function rekap(Partai $partai, string $tahun, Pemilu $pemilu, Dapil $dapil, Request $request): Response
@@ -41,19 +39,21 @@ class RekapSuaraPartaiController extends Controller
 
         $menupemilu = Pemilu::where('is_partai', '=', 1)->where('tahun', '=', $tahun)->get();
 
-        $totalpemilih = Dapil::withCount([
-            'tpsuaras as total_pemilih' => function (Builder $query) {
-                $query->select(DB::raw('COALESCE(sum(jlh_pemilih),0)'));
-            },
-        ])
-        ->where('pemilu_id', '=', $pemilu->id)
-        ->when(request('wilayah'), function ($q) use ($request) {
-            return $q->where('dapils.id', $request->wilayah);
-        })
-        ->get();
-
-
-        $partais = Partai::has('calons')->withCount([
+        $partais = Partai::with(['calons' => function (MyBuilder $query) use ($pemilu, $request) {
+            $query->with('user')
+            ->withCount([
+                'calontpsuaras' => function (Builder $query) {
+                    $query->select(DB::raw('COALESCE(sum(jlh_suara_tps),0)'));
+                },
+            ])
+            ->join('dapils', 'calons.dapil_id', '=', 'dapils.id')
+                ->where('dapils.pemilu_id', $pemilu->id)
+                ->when(request('wilayah'), function ($q) use ($request) {
+                    return $q->where('dapils.id', $request->wilayah);
+                })
+            ->orderBy('calontpsuaras_count', 'desc');
+        }])
+        ->withCount([
             'calonTpsuaras as jumlah_suara' => function (Builder $q) use ($pemilu, $request) {
                 $q->select(DB::raw('COALESCE(sum(jlh_suara_tps),0)'))
                 ->join('dapils', 'calons.dapil_id', '=', 'dapils.id')
@@ -78,34 +78,77 @@ class RekapSuaraPartaiController extends Controller
         ->orderBy('jumlah_suara', 'desc')
         ->get();
 
+
+        $hasil[] = [];
+        foreach ($partais as $key => $value) {
+            $hasil[$key] = [
+
+                    'n1'=> [
+                        'id' => $value->id,
+                        'logo' => $value->logo,
+                        'partai' => $value->nama_partai,
+                        'nilai' => ($value->jumlah_suara+$value->suara_partai)/1,
+                        'calons' => $value->calons,
+                    ],
+                    'n3'=> [
+                        'id' => $value->id,
+                        'logo' => $value->logo,
+                        'partai' => $value->nama_partai,
+                        'nilai' => ($value->jumlah_suara+$value->suara_partai)/3,
+                        'calons' => $value->calons,
+                    ],
+                    'n5'=> [
+                        'id' => $value->id,
+                        'logo' => $value->logo,
+                        'partai' => $value->nama_partai,
+                        'nilai' => ($value->jumlah_suara+$value->suara_partai)/5,
+                        'calons' => $value->calons,
+                    ],
+                    'n7'=> [
+                        'id' => $value->id,
+                        'logo' => $value->logo,
+                        'partai' => $value->nama_partai,
+                        'nilai' => ($value->jumlah_suara+$value->suara_partai)/7,
+                        'calons' => $value->calons,
+                    ],
+                    'n9'=> [
+                        'id' => $value->id,
+                        'logo' => $value->logo,
+                        'partai' => $value->nama_partai,
+                        'nilai' => ($value->jumlah_suara+$value->suara_partai)/9,
+                        'calons' => $value->calons,
+                    ],
+                    'n11'=> [
+                        'id' => $value->id,
+                        'logo' => $value->logo,
+                        'partai' => $value->nama_partai,
+                        'nilai' => ($value->jumlah_suara+$value->suara_partai)/11,
+                        'calons' => $value->calons,
+                    ],
+            ];
+        }
+
         $dapils = Dapil::where('pemilu_id', $pemilu->id)->get();
 
-        return Inertia::render('RekapSuaraPartai/Rekap', [
+        return Inertia::render('PerolehanKursi/Rekap', [
             'partai' => $partai,
             'tahun' => $tahun,
-            'menupemilu' => RekapSuaraPartaiResource::collection($menupemilu),
+            'partais' => $partais,
+            'menupemilu' => $menupemilu,
             'filtered' => $request->only(['wilayah']),
             'pemilu' => $pemilu,
-            'partais' => $partais,
             'dapils' => $dapils,
-            'totalpemilih' => $totalpemilih,
-            
+            'hasil' => request('wilayah') ? $hasil : $hasil = [],
         ]);
     }
 
     public function get_calon(Partai $partai, string $tahun, Pemilu $pemilu, Dapil $dapil, Request $request)
     {
-        // return dd($request->filled('wilayah'));
 
         $datacalon = Calon::select(['calons.id', 'calons.foto', 'users.name', 'partais.nama_partai', 'partais.warna'])
         ->withCount([
             'calontpsuaras' => function (Builder $query) use($partai, $pemilu, $request) {
                 $query->select(DB::raw('COALESCE(sum(jlh_suara_tps),0)'))
-                // ->join('dapils', 'calons.dapil_id', '=', 'dapils.id')
-                // ->where('dapils.pemilu_id', $pemilu->id)
-                // ->when(request('wilayah'), function ($q) use ($request) {
-                //     return $q->where('dapils.id', $request->wilayah);
-                // })
                 ;
             },
         ])

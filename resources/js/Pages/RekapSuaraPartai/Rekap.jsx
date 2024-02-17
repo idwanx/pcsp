@@ -8,7 +8,7 @@ import { ArrowLeftCircleIcon, ArrowLongRightIcon, ArrowPathIcon, UserCircleIcon,
 import Select from '@/Components/Select';
 
 export default function Rekap() {
-    const { partai, tahun, pemilu, filtered, partais, dapils, totalpemilih, hasil } = usePage().props;
+    const { partai, tahun, pemilu, filtered, partais, dapils, totalpemilih } = usePage().props;
     
     const [calons, setCalon] = useState([]);
     
@@ -17,32 +17,7 @@ export default function Rekap() {
     const kembali = () => {
         window.history.back();
     };
-
-    const flatmapdata = hasil?.flatMap((suara) => 
-        [suara.n1,suara.n3,suara.n5,suara.n7,suara.n9,suara.n11]
-    );
-
-    const ranking = flatmapdata?.sort((a, b) => b.nilai - a.nilai );
     
-    const slicedata = ranking?.slice(0,6);
-
-    // const hasilakhir = groupranking.reduce((myitems, { nilai, partai }) => {
-    //     if (!myitems[partai]) myitems[partai] = [];
-    //     myitems[partai].push(nilai);
-    //     return myitems;
-    //   }, {});
-
-    const groupedData = slicedata?.reduce((groups, item) => {
-        const { partai } = item;
-        if (!groups[partai]) {
-            groups[partai] = [];
-        }
-        groups[partai].push(item.logo);
-        return groups;
-    }, {});
-
-    //   console.log(groupedData);
-
     useEffect(() => {
         if(state) {
             async function fetchData() {
@@ -133,43 +108,7 @@ export default function Rekap() {
                 <div className="hidden sm:w-1/5 lg:block md:hidden">
                     <div className="space-y-4 -mt-12 pt-12 lg:sticky lg:top-8 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
                         <SideBar/>
-                        <div className="flex">
-                            <div className="relative w-full overscroll-auto">
-                                <div className="bg-white p-3 rounded-lg border border-gray-200">
-                                    <div className="space-y-2">
-                                        <div className="sticky top-0">
-                                            <p className="text-md font-semibold text-gray-600">Perolehan Kursi</p>
-                                        </div>
-                                            <ul role="list" className="divide-y divide-gray-200">
-                                            {hasil.length > 0 && total > 0 ? Object.entries(groupedData)?.map(([category, items]) => (
-                                                <li key={category} className="flex py-3 items-center">
-                                                    {items?.[0] == null ?
-                                                    <img className="h-14 w-14 flex-none rounded-md bg-gray-50" src="/images/no-camera.png" alt="" />
-                                                    :
-        
-                                                        <img className="h-14 w-14 flex-none rounded-md bg-gray-50" src={`/storage/${items[0]}`} alt="" />
-                                                    }
-                                                    <div className="ml-4 flex flex-1 flex-col min-w-0">
-                                                        <div className='min-w-0 flex-auto'>
-                                                            <div className="flex justify-between text-sm font-medium text-gray-600">
-                                                                <h3>
-                                                                {category}
-                                                                </h3>
-                                                            </div>
-                                                            <p className="text-sm text-rose-600">{items.length} Kursi</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            ))
-                                            : <div className="text-gray-500">Silahkan pilih dapil untuk melihat perolehan kursi partai.</div>
-                                            }
-                                            </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
+                        
                     </div>
                 </div>
                 

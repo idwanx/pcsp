@@ -181,14 +181,15 @@ export default function Navbar() {
                         :
                         null
                         }
+
                         
-                        {/* {auth.user.largest_order.role_id == "2" ?
-                            <NavLink>
+                        {auth.user.largest_order.role_id == "2" ?
+                            <NavLink href={route('perolehankursi.index', { partai: partai, tahun: tahun })} active={route().current('perolehankursi.*')}>
                                 Perolehan Kursi
                             </NavLink>
                         :
                         null
-                        } */}
+                        }
                         
                         {auth.user.largest_order.role_id == "5" ?
                             <NavLink href={route('laporsuara.dashboard', { partai: partai, tahun: tahun })} active={route().current('laporsuara.*')}>

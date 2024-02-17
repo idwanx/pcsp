@@ -11,6 +11,7 @@ use App\Http\Controllers\InputSuaraController;
 use App\Http\Controllers\LaporanSuaraController;
 use App\Http\Controllers\LaporSuaraController;
 use App\Http\Controllers\PemiluController;
+use App\Http\Controllers\PerolehanKursiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekapSuaraPartaiController;
 use App\Http\Controllers\SuaraMasukController;
@@ -89,6 +90,15 @@ Route::middleware(['auth', 'verified'])->group(function() {
         Route::get('downloaddokumen/{dokumentpsuara}', [SuaraMasukController::class, 'download_dokumen'])->name('suaramasuk.downloaddokumen');
         Route::delete('destroydokumen/{dokumentpsuara}', [SuaraMasukController::class, 'destroy_dokumen'])->name('suaramasuk.destroydokumen');
         Route::put('updatesuararusak/{suararusak}', [SuaraMasukController::class, 'update_suara_rusak'])->name('suaramasuk.updatesuararusak');
+    });
+});
+
+Route::middleware(['auth', 'verified'])->group(function() {
+    Route::scopeBindings()->prefix('{partai}/{tahun}/perolehankursi')->group(function () {
+        Route::get('indexperolehankursi', [PerolehanKursiController::class, 'index'])->name('perolehankursi.index');
+        Route::get('pemilu/{pemilu}', [PerolehanKursiController::class, 'rekap'])->name('perolehankursi.rekap');
+
+        Route::get('getcalonpartai/{pemilu}', [PerolehanKursiController::class, 'get_calon'])->name('perolehankursi.getcalonpartai');
     });
 });
 
