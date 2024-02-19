@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { usePage } from '@inertiajs/react';
 import TextInput from '@/Components/TextInput';
 
