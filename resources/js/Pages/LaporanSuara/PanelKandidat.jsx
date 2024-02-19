@@ -49,7 +49,7 @@ export default function PanelKandidat({setIsPanelKandidat, model, judul}) {
                             {kandidats?.map((kandidat, index) => (
                             <li key={index} className="flex py-3 items-center">
                                 {kandidat.foto == null ?
-                                    <img className="h-16 w-16 flex-none rounded-full bg-gray-50" src="/images/no-camera.png" alt="" />
+                                    <UserCircleIcon className="w-16 h-16 stroke-gray-400 stroke-1 inline -mt-0.5" />
                                 :
                                     <img className="h-16 w-16 flex-none rounded-full bg-gray-50" src={`/storage/${kandidat.foto}`} alt="" />
                                 }
