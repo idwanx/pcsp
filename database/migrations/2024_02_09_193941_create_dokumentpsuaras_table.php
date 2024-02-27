@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('keterangan');
             $table->text('files')->nullable();
             $table->text('nameoriginalfiles')->nullable();
-            $table->string(' extentionfiles');
+            $table->string('extentionfiles');
             $table->foreignId('user_id')->constrained('users')->onDelete('restrict');
             $table->timestamp('lock_at')->nullable();
             $table->timestamps();

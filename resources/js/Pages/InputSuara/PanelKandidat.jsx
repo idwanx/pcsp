@@ -70,7 +70,7 @@ export default function PanelKandidat({setIsPanelKandidat, model, judul}) {
                         }
                         
                     )
-              }
+            }
               fetchData();
         }
         

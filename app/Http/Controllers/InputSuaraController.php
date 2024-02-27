@@ -189,7 +189,9 @@ class InputSuaraController extends Controller
                     ], ['jlh_suara_tps']
                 );
 
-                broadcast(new SuaraMasuk('suara-masuk'))->toOthers();
+                // broadcast(new SuaraMasuk('suara-masuk-tps'))->toOthers();
+
+                event(new SuaraMasuk('hello all world'));
         
                 return back()->with([
                     'type' => 'success',

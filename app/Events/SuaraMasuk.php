@@ -30,11 +30,20 @@ class SuaraMasuk implements ShouldBroadcast
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
-    public function broadcastOn(): array
+    // public function broadcastOn(): array
+    // {
+    //     return [
+    //         // new PrivateChannel('channel-name'),
+    //         new Channel('suara-masuk'),
+    //     ];
+    // }
+    public function broadcastOn()
     {
-        return [
-            // new PrivateChannel('channel-name'),
-            new Channel('suara-masuk'),
-        ];
+        return ['channel-tps'];
+    }
+
+    public function broadcastAs()
+    {
+        return 'my-suara';
     }
 }

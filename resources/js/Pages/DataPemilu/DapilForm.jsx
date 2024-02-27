@@ -9,6 +9,8 @@ import Select from '@/Components/Select';
 export default function DapilForm({ isClose, data, setData, errors, processing, submit, submitLabel, title }) {
     const { pemilus } = usePage().props;
 
+    console.log(submitLabel === 'Update');
+
   return (
     <>
     <form onSubmit={submit} noValidate>
